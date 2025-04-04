@@ -1,20 +1,28 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import ContactRow from './ContactRow';
 
-// dummy data for contacts
-// This data is used to populate the contact list in the table.
-const dummyContacts = [
-    { id: 1, name: "R2-D2", phone: "222-222-2222", email: "r2d2@droids.com" },
-    { id: 2, name: "C-3PO", phone: "333-333-3333", email: "c3po@droids.com" },
-    { id: 3, name: "BB-8", phone: "888-888-8888", email: "bb8@droids.com" },
-  ];
-
-export default function ContactList(){
-    const [contacts, setContacts] = useState(dummyContacts);
+export default function ContactList() {
+    const [contacts, setContacts] = useState([]);
     // The useState hook is used to manage the state of the contacts.
     // The initial state is set to the dummyContacts array.
-    console.log("Contacts: ", contacts);
+    // The useEffect hook is used to fetch the contacts from an API when the component mounts.
+    //The setContacts function is used to update the state of the contacts.
+    useEffect (() => {
+        async function fetchContacts() {
+            try {
+                const response = await fetch('https://fsa-jsonplaceholder-69b5c48f1259.herokuapp.com/users');
+                const result = await response.json();
+                setContacts(result);
+            } catch (error) {
+                console.error(error);
+                // If an error occurs during the fetch, it is logged to the console.
+             }   
+        }
+        fetchContacts();
+}, []);
+    
+console.log("Contacts: ", contacts);
     // This line logs the current state of contacts to the console for debugging purposes.
     return (
         <table>
