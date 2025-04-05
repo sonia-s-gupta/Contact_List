@@ -2,12 +2,10 @@ import React from 'react';
 import {useState, useEffect} from 'react';
 import ContactRow from './ContactRow';
 
-export default function ContactList() {
+export default function ContactList({setSelectedContactId}) {
+    // The ContactList component is a functional component that displays a list of contacts in a table format.
     const [contacts, setContacts] = useState([]);
     // The useState hook is used to manage the state of the contacts.
-    // The initial state is set to the dummyContacts array.
-    // The useEffect hook is used to fetch the contacts from an API when the component mounts.
-    //The setContacts function is used to update the state of the contacts.
     useEffect (() => {
         async function fetchContacts() {
             try {
@@ -38,7 +36,7 @@ console.log("Contacts: ", contacts);
                     <td>Phone</td>
                 </tr>
                 {contacts.map((contact) => {
-                        return <ContactRow key = {contact.id} contact = {contact} />
+                        return <ContactRow key = {contact.id} contact = {contact} setSelectedContactId = {setSelectedContactId} />
                             // The ContactRow component is used to render each contact in the list.
                             // The key prop is used to uniquely identify each row in the list.
                             // The contact prop is passed to the ContactRow component to display the contact's information.

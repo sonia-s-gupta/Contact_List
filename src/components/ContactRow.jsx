@@ -1,8 +1,15 @@
 import React from "react";
 
-export default function ContactRow({ contact }) {
+export default function ContactRow({ setSelectedContactId, contact }) {
   return (
-    <tr>
+    <tr
+        onClick={() => {
+            setSelectedContactId(contact.id);
+        }}
+    >
+      {/* The onClick event handler is used to set the selected contact ID when a row is clicked. */}
+      {/* The setSelectedContactId function is passed as a prop from the parent component. */}
+      {/* The contact prop is used to access the contact's information. */}
       <td>{contact.name}</td>
       <td>{contact.email}</td>
       <td>{contact.phone}</td>
